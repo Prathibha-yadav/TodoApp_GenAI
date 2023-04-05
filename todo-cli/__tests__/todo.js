@@ -49,17 +49,17 @@ describe("Todolist Test Suite", () => {
     expect(overdue().length).toBe(1);
   });
 
+  test("Should retrive due today items", () => {
+    expect(dueToday().length).toEqual(2);
+  });
+
   test("Should retrive due Later items", () => {
-    const y = {
+    const z = {
       title: "Test dueLater",
       completed: false,
       dueDate: tomorrow,
     };
-    add(y);
+    add(z);
     expect(dueLater().length).toBe(1);
-  });
-
-  test("Should retrive due today items", () => {
-    expect(dueToday().length).toEqual(2);
   });
 });
