@@ -50,7 +50,7 @@ describe("Todolist Test Suite", () => {
   });
 
   test("Should retrive due today items", () => {
-    expect(dueToday().length).toEqual(2);
+    expect(dueToday().length).toBe(2);
   });
 
   test("Should retrive due Later items", () => {
