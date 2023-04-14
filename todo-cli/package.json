@@ -4,8 +4,10 @@
   "description": "",
   "main": "todo.js",
   "scripts": {
-    "test": "jest",
-    "prepare": "cd .. && husky install todo-cli/.husky"
+    "db:create:test": "NODE_ENV=test npx sequelize-cli db:create",
+    "pretest": "NODE_ENV=test npx sequelize-cli db:drop && NODE_ENV=test npx sequelize-cli db:create",
+    "test": "NODE_ENV=test jest --detectOpenHandles",
+    "prepare": "husky install"
   },
   "lint-staged": {
     "*.js": [
