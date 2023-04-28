@@ -1,0 +1,20 @@
+<style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    </style>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Completed</th>
+      </tr>
+      <% for(let i=0;i<allTodos.length; i++) { %>
+        <tr>
+          <td><%= allTodos[i].title %></td>
+          <td><%= allTodos[i].dueDate %></td>
+          <td><%= allTodos[i].completed %></td>
+        </tr>
+      <% } %>
+    </table>
