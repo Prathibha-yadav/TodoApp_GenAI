@@ -21,7 +21,7 @@ describe("todo test suits", () => {
     await db.sequelize.close();
     server.close();
   });
-  test("Test the functionality of create a new todo item", async () => {
+  test("create a new todo item", async () => {
     const getResponse = await agent.get("/");
     const csrfToken = fetchCsrfToken(getResponse);
     const response = await agent.post("/todos").send({
@@ -32,7 +32,7 @@ describe("todo test suits", () => {
     });
     expect(response.statusCode).toBe(302);
   });
-  test("Test the update functionality by updating the markAsCompleted", async () => {
+  test("updating markAsCompleted", async () => {
     const getResponse = await agent.get("/");
     let csrfToken = fetchCsrfToken(getResponse);
     await agent.post("/todos").send({
@@ -56,7 +56,7 @@ describe("todo test suits", () => {
     const UpadteTodoItemParse = JSON.parse(changeTodo.text);
     expect(UpadteTodoItemParse.completed).toBe(true);
   });
-  test("Test the delete functionality", async () => {
+  test("deleting a todo", async () => {
     const getResponse = await agent.get("/");
     let csrfToken = fetchCsrfToken(getResponse);
     await agent.post("/todos").send({
@@ -81,7 +81,7 @@ describe("todo test suits", () => {
     expect(boolResponse).toBe(true);
   });
 
-  test("Test the marking an item as incomplete", async () => {
+  test("marking an item as incomplete", async () => {
     const getResponse = await agent.get("/");
     let csrfToken = fetchCsrfToken(getResponse);
     await agent.post("/todos").send({
@@ -108,11 +108,11 @@ describe("todo test suits", () => {
     anotherRes = await agent.get("/");
     csrfToken = fetchCsrfToken(anotherRes);
 
-    const changeTodo2 = await agent
+    const changeTodos = await agent
       .put(`/todos/${Todo.id}`)
       .send({ _csrf: csrfToken, completed: !boolStatus });
 
-    const UpadteTodoItemParse2 = JSON.parse(changeTodo2.text);
-    expect(UpadteTodoItemParse2.completed).toBe(false);
+    const UpadteTodoItemParsed = JSON.parse(changeTodos.text);
+    expect(UpadteTodoItemParsed.completed).toBe(false);
   });
 });
