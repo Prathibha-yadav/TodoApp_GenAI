@@ -1,27 +1,26 @@
 const request = require("supertest");
+let cheerio = require("cheerio");
 const db = require("../models/index");
 const app = require("../app");
-const cheerio = require("cheerio");
 
-let server;
-let agent;
+let server, agent;
 
 function fetchCsrfToken(res) {
   var $ = cheerio.load(res.text);
   return $("[name=_csrf]").val();
 }
 
-describe("todo test suits", () => {
+describe("todo test suite", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
-    server = app.listen(process.env.PORT || 3000, () => {});
+    server = app.listen(process.env.PORT || 4000, () => {});
     agent = request.agent(server);
   });
   afterAll(async () => {
     await db.sequelize.close();
     server.close();
   });
-  test("create a new todo item", async () => {
+  test("create new todo", async () => {
     const getResponse = await agent.get("/");
     const csrfToken = fetchCsrfToken(getResponse);
     const response = await agent.post("/todos").send({
@@ -32,7 +31,7 @@ describe("todo test suits", () => {
     });
     expect(response.statusCode).toBe(302);
   });
-  test("updating markAsCompleted", async () => {
+  test("Mark todo as completed", async () => {
     const getResponse = await agent.get("/");
     let csrfToken = fetchCsrfToken(getResponse);
     await agent.post("/todos").send({
@@ -56,11 +55,11 @@ describe("todo test suits", () => {
     const UpadteTodoItemParse = JSON.parse(changeTodo.text);
     expect(UpadteTodoItemParse.completed).toBe(true);
   });
-  test("deleting a todo", async () => {
+  test("Delete todo using ID", async () => {
     const getResponse = await agent.get("/");
     let csrfToken = fetchCsrfToken(getResponse);
     await agent.post("/todos").send({
-      title: "Deleting todo",
+      title: "Go shopping",
       dueDate: new Date().toISOString(),
       completed: false,
       _csrf: csrfToken,
@@ -85,7 +84,7 @@ describe("todo test suits", () => {
     const getResponse = await agent.get("/");
     let csrfToken = fetchCsrfToken(getResponse);
     await agent.post("/todos").send({
-      title: "marking incomplete",
+      title: "read a book",
       dueDate: new Date().toISOString(),
       completed: false,
       _csrf: csrfToken,
