@@ -5,7 +5,7 @@ const app = require("../app");
 
 let server, agent;
 
-function fetchCsrfToken(res) {
+function extractCsrfToken(res) {
   var $ = cheerio.load(res.text);
   return $("[name=_csrf]").val();
 }
@@ -13,7 +13,7 @@ function fetchCsrfToken(res) {
 describe("todo test suite", () => {
   beforeAll(async () => {
     await db.sequelize.sync({ force: true });
-    server = app.listen(process.env.PORT || 4000, () => {});
+    server = app.listen(4000, () => {});
     agent = request.agent(server);
   });
   afterAll(async () => {
@@ -22,7 +22,7 @@ describe("todo test suite", () => {
   });
   test("create new todo", async () => {
     const getResponse = await agent.get("/");
-    const csrfToken = fetchCsrfToken(getResponse);
+    const csrfToken = extractCsrfToken(getResponse);
     const response = await agent.post("/todos").send({
       title: "Go to movie",
       dueDate: new Date().toISOString(),
@@ -33,7 +33,7 @@ describe("todo test suite", () => {
   });
   test("Mark todo as completed", async () => {
     const getResponse = await agent.get("/");
-    let csrfToken = fetchCsrfToken(getResponse);
+    let csrfToken = extractCsrfToken(getResponse);
     await agent.post("/todos").send({
       title: "Buy milk",
       dueDate: new Date().toISOString(),
@@ -46,7 +46,7 @@ describe("todo test suite", () => {
     const Todo = TodosItemsParse.dueToday[calculateTodosTodayITem - 1];
     const boolStatus = Todo.completed ? false : true;
     const anotherRes = await agent.get("/");
-    csrfToken = fetchCsrfToken(anotherRes);
+    csrfToken = extractCsrfToken(anotherRes);
 
     const changeTodo = await agent
       .put(`/todos/${Todo.id}`)
@@ -57,7 +57,7 @@ describe("todo test suite", () => {
   });
   test("Delete todo using ID", async () => {
     const getResponse = await agent.get("/");
-    let csrfToken = fetchCsrfToken(getResponse);
+    let csrfToken = extractCsrfToken(getResponse);
     await agent.post("/todos").send({
       title: "Go shopping",
       dueDate: new Date().toISOString(),
@@ -70,7 +70,7 @@ describe("todo test suite", () => {
     const Todo = TodosItemsParse.dueToday[calculateTodosTodayITem - 1];
     const boolStatus = Todo.completed ? false : true;
     const anotherRes = await agent.get("/");
-    csrfToken = fetchCsrfToken(anotherRes);
+    csrfToken = extractCsrfToken(anotherRes);
 
     const changeTodo = await agent
       .delete(`/todos/${Todo.id}`)
@@ -82,7 +82,7 @@ describe("todo test suite", () => {
 
   test("marking an item as incomplete", async () => {
     const getResponse = await agent.get("/");
-    let csrfToken = fetchCsrfToken(getResponse);
+    let csrfToken = extractCsrfToken(getResponse);
     await agent.post("/todos").send({
       title: "read a book",
       dueDate: new Date().toISOString(),
@@ -95,7 +95,7 @@ describe("todo test suite", () => {
     const Todo = TodosItemsParse.dueToday[calculateTodosTodayITem - 1];
     const boolStatus = !Todo.completed;
     let anotherRes = await agent.get("/");
-    csrfToken = fetchCsrfToken(anotherRes);
+    csrfToken = extractCsrfToken(anotherRes);
 
     const changeTodo = await agent
       .put(`/todos/${Todo.id}`)
@@ -105,7 +105,7 @@ describe("todo test suite", () => {
     expect(UpadteTodoItemParse.completed).toBe(true);
 
     anotherRes = await agent.get("/");
-    csrfToken = fetchCsrfToken(anotherRes);
+    csrfToken = extractCsrfToken(anotherRes);
 
     const changeTodos = await agent
       .put(`/todos/${Todo.id}`)
