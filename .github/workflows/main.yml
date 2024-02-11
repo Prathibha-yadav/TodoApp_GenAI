@@ -18,6 +18,7 @@ jobs:
           POSTGRES_USER: ${{ secrets.PG_USER }}
           POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
           POSTGRES_DB: ${{ secrets.PG_DATABASE }}
+          SLACK_WEBHOOK_URL:  ${{ secrets.SLACK_WEBHOOK_URL }}
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -61,6 +62,6 @@ jobs:
         uses: act10ns/slack@v1
         with: 
           status: starting
-          channel: '#meetups'
+          channel: '#pipeline'
           message: Starting Build and Deploy...
         if: always()
