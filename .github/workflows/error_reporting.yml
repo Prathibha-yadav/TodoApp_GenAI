@@ -17,4 +17,4 @@ jobs:
       - name: Notify on failure
         # if: ${{ failure() }}
         run: |
-          curl -X POST -H 'Content-type: application/json' --data '{"text":"Error occurred in CI/CD pipeline for the project."}' https://hooks.slack.com/services/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
+          curl -X POST -H 'Content-type: application/json' --data '{"text":"Error occurred in CI/CD pipeline for the project."}' https://hooks.slack.com/services/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
