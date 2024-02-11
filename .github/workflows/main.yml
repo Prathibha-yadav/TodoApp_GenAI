@@ -56,3 +56,15 @@ jobs:
           cd todo-app
           npm install cypress cypress-json-results
           npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
+          
+      - name: Slack Notification
+        uses: act10ns/slack@v1
+        with:
+          status: ${{ job.status }}
+          channel: '#github-notifications'
+          message: |
+              Build and Deploy Status: ${{ job.status }}
+              Job Name: ${{ github.job }}
+              Workflow: ${{ github.workflow }}
+          webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
+        if: failure()
