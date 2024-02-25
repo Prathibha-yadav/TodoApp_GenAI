@@ -1,0 +1,28 @@
+version: "3.8"
+
+services:
+  app:
+    build:
+      context: .
+      target: production
+    image: todo-app:production
+    ports:
+      - "3500:3300"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    image: postgres:11.7
+    volumes:
+      - pg-prod-data:/var/lib/postgresql/data
+    env_file:
+      - .env
+    environment:
+      PG_USER: $PROD_USERNAME
+      PG_DB: $PROD_DATABASE
+      PG_PASSWORD: $PROD_PASSWORD
+
+volumes:
+  pg-prod-data:
