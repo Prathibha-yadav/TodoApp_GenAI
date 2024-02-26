@@ -7,7 +7,7 @@ EXPOSE 3300
 # Production stage
 FROM base as production
 ENV NODE_ENV=production
-RUN npm install --only=production
+RUN npm install -g husky
 COPY . /app
 CMD ["node", "index.js"]
 
