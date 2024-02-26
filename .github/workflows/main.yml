@@ -15,7 +15,7 @@ jobs:
         image: postgres:11.7
         # Provide the password for postgres
         env:
-          POSTGRES_USER: ${{ secrets.PG_USER }}
+          POSTGRES_USER: ${{ secrets.PG_USERNAME }}
           POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
           POSTGRES_DB: ${{ secrets.PG_DATABASE }}
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
