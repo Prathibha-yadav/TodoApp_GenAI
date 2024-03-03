@@ -55,6 +55,10 @@ jobs:
       - name: Install dependencies
         run: docker-compose -f todo-app/docker-compose.yml run --rm app npm ci
 
+      - name: Debug Docker Compose
+        run: docker-compose -f todo-app/docker-compose.yml exec app printenv
+      
+
       - name: Run unit tests
         run: docker-compose -f todo-app/docker-compose.yml run --rm app npm test
 
