@@ -35,6 +35,12 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - name: Create temporary .env file
+        run: |
+          echo "DEV_USERNAME=${{ secrets.PG_USERNAME }}" >> todo-app/.env
+          echo "DEV_PASSWORD=${{ secrets.PG_PASSWORD }}" >> todo-app/.env
+          echo "DEV_DATABASE=${{ secrets.PG_DATABASE }}" >> todo-app/.env
+
       # Perform Docker actions
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin

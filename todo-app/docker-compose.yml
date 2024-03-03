@@ -10,7 +10,7 @@ services:
     ports:
       - "3400:3300"
     env_file:
-      - todo-app/.env  # Corrected path to the .env file
+      - .env
     depends_on:
       - db
 
@@ -19,7 +19,7 @@ services:
     volumes:
       - pg-dev-data:/var/lib/postgresql/data
     env_file:
-      - todo-app/.env  # Corrected path to the .env file
+      - .env
     environment:
       PG_USER: $DEV_USERNAME
       PG_DB: $DEV_DATABASE
