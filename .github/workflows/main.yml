@@ -2,18 +2,11 @@ name: postgres
 on: push
 
 jobs:
-  # Label of the container job
   run-tests:
-    # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
-
-    # Service containers to run with `container-job`
     services:
-      # Label used to access the service container
       postgres:
-        # Docker Hub image
         image: postgres:11.7
-        # Provide the password for postgres
         env:
           POSTGRES_USER: ${{ secrets.PG_USERNAME }}
           POSTGRES_PASSWORD: ${{ secrets.PG_PASSWORD }}
@@ -21,7 +14,6 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SERVICE_ID: ${{ secrets.SERVICE_ID }}
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-        # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -31,50 +23,37 @@ jobs:
           - 5432:5432
 
     steps:
-      # Downloads a copy of the code in your repository before running CI tests
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      # Perform Docker actions
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t prathibhayadav/todo-app:latest todo-app
+        run: docker-compose -f docker-compose.yml build
 
       - name: Push Docker image to Docker Hub
-        run: docker push prathibhayadav/todo-app:latest
+        run: docker-compose -f docker-compose.yml push
 
-      # Perform the rest of the original steps
       - name: Install dependencies
-        run: cd todo-app && npm ci
+        run: docker-compose -f docker-compose.yml run todo-app npm ci
 
       - name: Run unit tests
-        run: cd todo-app && npm test
+        run: docker-compose -f docker-compose.yml run todo-app npm test
 
       - name: Run the app
         id: run-app
         run: |
-          cd todo-app
-          npm install
-          npx sequelize-cli db:drop
-          npx sequelize-cli db:create
-          npx sequelize-cli db:migrate
-          PORT=3000 npm start &
+          docker-compose -f docker-compose.yml up -d
+          docker-compose -f docker-compose.yml exec todo-app npx sequelize-cli db:drop
+          docker-compose -f docker-compose.yml exec todo-app npx sequelize-cli db:create
+          docker-compose -f docker-compose.yml exec todo-app npx sequelize-cli db:migrate
           sleep 5
 
       - name: Run integration tests
         run: |
-          cd todo-app
-          npm install cypress cypress-json-results
-          npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
-          
-
-      - name: Deploy to production
-        uses: johnbeynon/render-deploy-action@v0.0.8
-        with:
-          service-id: ${{ secrets.SERVICE_ID }}
-          api-key: ${{ secrets.RENDER_API_KEY }}
+          docker-compose -f docker-compose.yml exec todo-app npm install cypress cypress-json-results
+          docker-compose -f docker-compose.yml exec todo-app npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
 
       - name: Slack Notification
         uses: act10ns/slack@v1
@@ -86,4 +65,13 @@ jobs:
               Job Name: ${{ github.job }}
               Workflow: ${{ github.workflow }}
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        # if: failure()
+
+  deploy-prod:
+    needs: run-tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+      - name: Deploy to production
+        run: docker-compose -f docker-compose-prod.yml up -d
