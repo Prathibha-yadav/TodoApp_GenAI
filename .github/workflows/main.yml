@@ -21,9 +21,6 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SERVICE_ID: ${{ secrets.SERVICE_ID }}
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
@@ -38,20 +35,17 @@ jobs:
       - name: Check out repository code
         uses: actions/checkout@v3
 
-      # Build Docker image
-      - name: Build Docker image
-        run: docker build -t prathibhayadav/todo-app:latest .
-
-      # Log in to Docker Hub
+      # Perform Docker actions
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      # Push Docker image to Docker Hub
+      - name: Build Docker image
+        run: docker build -t prathibhayadav/todo-app:latest todo-app
+
       - name: Push Docker image to Docker Hub
         run: docker push prathibhayadav/todo-app:latest
 
-      # Performs a clean installation of all dependencies in the `package.json` file
-      # For more information, see https://docs.npmjs.com/cli/ci.html
+      # Perform the rest of the original steps
       - name: Install dependencies
         run: cd todo-app && npm ci
 
