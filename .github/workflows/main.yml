@@ -55,26 +55,25 @@ jobs:
       - name: Install dependencies
         run: docker-compose -f todo-app/docker-compose.yml run --rm app npm ci
 
-
+      - name: Wait for database to be ready
+        run: docker-compose -f todo-app/docker-compose.yml run --rm app sh -c 'while ! nc -z db 5432; do sleep 1; done'
+      
       - name: Run unit tests
-        run: cd todo-app && npm test
+        run: docker-compose -f todo-app/docker-compose.yml run --rm app npm test
 
       - name: Run the app
         id: run-app
         run: |
-          cd todo-app
-          npm install
-          npx sequelize-cli db:drop
-          npx sequelize-cli db:create
-          npx sequelize-cli db:migrate
-          PORT=3000 npm start &
-          sleep 5
+          docker-compose -f todo-app/docker-compose.yml up -d
+          docker-compose -f todo-app/docker-compose.yml exec app npm install
+          docker-compose -f todo-app/docker-compose.yml exec app npx sequelize-cli db:drop
+          docker-compose -f todo-app/docker-compose.yml exec app npx sequelize-cli db:create
+          docker-compose -f todo-app/docker-compose.yml exec app npx sequelize-cli db:migrate
 
       - name: Run integration tests
         run: |
-          cd todo-app
-          npm install cypress cypress-json-results
-          npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
+          docker-compose -f todo-app/docker-compose.yml exec app npm install cypress cypress-json-results
+          docker-compose -f todo-app/docker-compose.yml exec app npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
           
 
       - name: Deploy to production
