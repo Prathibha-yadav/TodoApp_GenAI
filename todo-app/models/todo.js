@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
 
     static addTodo({ title, dueDate, userId }) {
       return this.create({
-        title: title,
-        dueDate: dueDate,
+        title,
+        dueDate,
         completed: false,
         userId,
       });
@@ -30,7 +30,7 @@ module.exports = (sequelize, DataTypes) => {
     }
 
     setCompletionStatus(complete) {
-      const setComplete = complete === true ? false : true;
+      const setComplete = complete !== true;
       return this.update({ completed: setComplete });
     }
 
