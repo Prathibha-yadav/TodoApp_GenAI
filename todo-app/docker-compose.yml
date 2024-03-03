@@ -9,8 +9,10 @@ services:
       - .:/app
     ports:
       - "3400:3300"
-    env_file:
-      - .env
+    environment:
+      DEV_USERNAME: ${{ secrets.PG_USERNAME }}
+      DEV_DATABASE: ${{ secrets.PG_DATABASE }}
+      DEV_PASSWORD: ${{ secrets.PG_PASSWORD }}
     depends_on:
       - db
 
@@ -18,12 +20,10 @@ services:
     image: postgres:11.7
     volumes:
       - pg-dev-data:/var/lib/postgresql/data
-    env_file:
-      - .env
     environment:
-      PG_USER: $DEV_USERNAME
-      PG_DB: $DEV_DATABASE
-      PG_PASSWORD: $DEV_PASSWORD
+      PG_USER: ${{ secrets.PG_USERNAME }}
+      PG_DB: ${{ secrets.PG_DATABASE }}
+      PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
 
 volumes:
   pg-dev-data:
