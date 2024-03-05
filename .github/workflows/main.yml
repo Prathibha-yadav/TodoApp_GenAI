@@ -45,9 +45,6 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push prathibhayadav/todo-app:latest
 
-      - name: Deploy with Docker Compose
-        run: docker-compose -f docker-compose-prod.yml up -d
-
       # Perform the rest of the original steps
       - name: Install dependencies
         run: cd todo-app && npm ci
