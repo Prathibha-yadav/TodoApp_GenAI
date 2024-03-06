@@ -6,7 +6,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 jobs:
   # Label of the container job
-  run-tests:
+  workflow-pipeline:
     # Containers must run in Linux based operating systems
     runs-on: ubuntu-latest
 
