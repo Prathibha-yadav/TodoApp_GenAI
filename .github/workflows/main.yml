@@ -1,6 +1,9 @@
 name: postgres
 on: push
 
+env:
+  REGISTRY: ghcr.io  
+  IMAGE_NAME: ${{ github.repository }}
 jobs:
   # Label of the container job
   run-tests:
@@ -21,8 +24,7 @@ jobs:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
           SERVICE_ID: ${{ secrets.SERVICE_ID }}
           RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
-          REGISTRY: ghcr.io  
-          IMAGE_NAME: ${{ github.repository }}
+         
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready
