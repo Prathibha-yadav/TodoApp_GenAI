@@ -1,5 +1,5 @@
 # Base image for both production and development stages
-FROM node:lts-alpine as base
+FROM --platform=$BUILDPLATFORM node:lts-alpine as base
 WORKDIR /app
 COPY package.json ./
 EXPOSE 3300
