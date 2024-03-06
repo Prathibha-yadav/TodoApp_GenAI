@@ -45,6 +45,41 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push prathibhayadav/todo-app:latest
 
+      # Dockerize the application
+      - name: Dockerize
+        runs-on: ubuntu-latest
+        permissions:
+          contents: read
+          packages: write
+        needs: run-tests
+        env:
+          REGISTRY: docker.io
+          IMAGE_NAME: prathibhayadav/todo-app
+        steps:
+          - name: Checkout repository code
+            uses: actions/checkout@v3
+
+          - name: Log in to the Container registry
+            uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
+            with:
+              registry: ${{ env.REGISTRY }}
+              username: ${{ secrets.DOCKER_USERNAME }}
+              password: ${{ secrets.DOCKER_PASSWORD }}
+
+          - name: Extract metadata (tags, labels) for Docker
+            id: meta
+            uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+            with:
+              images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+
+          - name: Build and push Docker image
+            uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
+            with:
+              context: .
+              push: true
+              tags: ${{ steps.meta.outputs.tags }}
+              labels: ${{ steps.meta.outputs.labels }}
+
       # Perform the rest of the original steps
       - name: Install dependencies
         run: cd todo-app && npm ci
@@ -68,7 +103,6 @@ jobs:
           cd todo-app
           npm install cypress cypress-json-results
           npx cypress run --env STUDENT_SUBMISSION_URL="http://localhost:3000/"
-          
 
       - name: Deploy to production
         uses: johnbeynon/render-deploy-action@v0.0.8
@@ -86,4 +120,3 @@ jobs:
               Job Name: ${{ github.job }}
               Workflow: ${{ github.workflow }}
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        # if: failure()
