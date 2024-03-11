@@ -1,11 +1,16 @@
-require("dotenv").config();
 const app = require("./app");
-// const https = require("https");
-// const fs = require("fs");
-// const path = require("path");
-app.listen(process.env.PORT, () => {
-  console.log("Started express server at 3300");
+app.listen(3200, () => {
+  console.log("Started express server at 3200");
 });
+
+// require('dotenv').config()
+// const app = require('./app')
+// // const https = require("https");
+// // const fs = require("fs");
+// // const path = require("path");
+// app.listen(process.env.PORT, () => {
+//   console.log('Started express server at 3400')
+// })
 
 // const sslServer = https.createServer(
 //   {

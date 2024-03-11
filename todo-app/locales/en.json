@@ -1,0 +1,20 @@
+{
+    "built_with_nodejs": "Built with Node.js",
+    "todo_app_title": "This is my Todo Application",
+    "welcome_message": "Welcome to the To-Do Manager",
+    "new_user_prompt": "New here? ",
+    "signup_link": "Sign-up now",
+    "existing_user_prompt": "Already have an account? ",
+    "signin_link": "Sign-in",
+    "signin_title": "Login in to Todo-Manager",
+    "signup_title": "Signup as a New user",
+    "overdue_title": "Overdue",
+    "home_link": "Home",
+    "signout_link": "Sign out",
+    "add_button": "Add",
+    "first_name_label": "First Name",
+    "last_name_label": "Last Name",
+    "email_label": "Email",
+    "password_label": "Password",
+    "signup_button": "Sign up"
+}

@@ -3,7 +3,6 @@
 /* eslint-disable n/handle-callback-err */
 /* eslint-disable no-unused-vars */
 const express = require("express");
-
 const csrf = require("tiny-csrf");
 const app = express();
 const { Todo, User } = require("./models");
@@ -20,6 +19,10 @@ const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
 
+const i18next = require("i18next");
+const Backend = require("i18next-fs-backend");
+const middleware = require("i18next-http-middleware");
+
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("sshh! some secret string"));
@@ -30,7 +33,7 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(flash());
 app.use(express.static(path.join(__dirname, "public")));
-
+app.use(middleware.handle(i18next));
 app.use(
   session({
     secret: "my-super-secret-key-21728172615261562",
@@ -88,6 +91,22 @@ passport.deserializeUser((id, done) => {
       done(error, null);
     });
 });
+i18next
+  .use(Backend)
+  .use(middleware.LanguageDetector)
+  .init({
+    fallbackLng: "ja",
+    backend: {
+      loadPath: "./locales/{{lng}}.json",
+    },
+  });
+// i18n.configure({
+//   locales: ['en', 'ja'],
+//   directory: path.join(__dirname, 'locales'),
+//   defaultLocale: 'ja',
+//   objectNotation: true
+// })
+// app.use(i18n.init)
 
 app.get("/", async function (request, response) {
   try {

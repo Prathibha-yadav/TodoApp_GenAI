@@ -1,0 +1,20 @@
+{
+	"built_with_nodejs": "Node.jsで構築されました",
+	"todo_app_title": "これは私のToDoアプリケーションです",
+	"welcome_message": "To-Doマネージャーへようこそ",
+    "new_user_prompt": "新しいですか？",
+    "signup_link": "今すぐサインアップ",
+    "existing_user_prompt": "アカウントをお持ちですか？",
+    "signin_link": "サインイン",
+	"signin_title": "ToDoマネージャーにログインしてください",
+	"signup_title": "新しいユーザーとしてサインアップ",
+	"overdue_title": "期限切れ",
+	"home_link": "ホーム",
+	"signout_link": "サインアウト",
+	"add_button": "追加",
+	"first_name_label": "名",
+	"last_name_label": "姓",
+	"email_label": "メール",
+	"password_label": "パスワード",
+	"signup_button": "サインアップ"
+}
