@@ -44,7 +44,7 @@
           .catch((err) => console.error(err));
       }
     </script>
-    <title>Todo-App</title>
+    <title><%= t('todo_app') %></title>
   </head>
   <body>
     <div class="grid grid-cols-6">
@@ -52,10 +52,11 @@
         <%- include('header') %>
         <%= loggedInUser.firstName %>
                     <%= loggedInUser.lastName %><br>
-                        <div>
-                            <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage">Home</a>
-                        </div>
-                        <div><a class="bg-red-600 text-white px-3 py-0 rounded font-medium mr-2 mb mt-5" href="/signout">Signout</a></div>
+                    <div>
+                      <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= t('home_link') %></a>
+                  </div>
+                  <div><a class="bg-red-600 text-white px-3 py-0 rounded font-medium mr-2 mb mt-5" href="/signout"><%= t('signout_link') %></a></div>
+                  
       
         <form action="/todos" method="post">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
@@ -64,7 +65,7 @@
               <input
                 type="text"
                 name="title"
-                placeholder="What's Next?"
+                placeholder="<%= t('add_button_placeholder') %>"
                 class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm"
               />
             </div>
@@ -72,15 +73,17 @@
               <input
                 type="date"
                 name="dueDate"
+                placeholder="<%= t('due_date_placeholder') %>"
                 class="border border-gray-300 rounded text-gray-900 w-full p-2 text-sm leading-4"
               />
             </div>
+            
             <div class="flex-none">
               <button
                 type="submit"
                 class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb"
               >
-                Add
+              <%= t('add_button') %>
               </button>
             </div>
           </div>
@@ -91,10 +94,11 @@
           <% } %>
         <% } %></div>
         <div>
-          <%- include('todo.ejs', {title: "Overdue", data: overDueItems}) %> <%-
-          include('todo.ejs', {title: "Due Today", data: dueTodayItems}) %> <%-
-          include('todo.ejs', {title: "Due Later", data: dueLaterItems}) %> <%-
-          include('todo.ejs', {title: "Completed Items", data: completedItems})
+          <%-
+          include('todo.ejs', {title: t('overdue_title'), data: overDueItems}) %> <%-
+          include('todo.ejs', {title: t('due_today_title'), data: dueTodayItems}) %> <%-
+          include('todo.ejs', {title: t('due_later_title'), data: dueLaterItems}) %> <%-
+          include('todo.ejs', {title: t('completed_title'), data: completedItems})
           %>
         </div>
         <div><%- include('footer') %></div>

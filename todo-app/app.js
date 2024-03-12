@@ -1,7 +1,6 @@
-/* eslint-disable eqeqeq */
 /* eslint-disable new-cap */
+/* eslint-disable eqeqeq */
 /* eslint-disable n/handle-callback-err */
-/* eslint-disable no-unused-vars */
 const express = require("express");
 const csrf = require("tiny-csrf");
 const app = express();
@@ -28,12 +27,38 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("sshh! some secret string"));
 app.use(csrf("this_should_be_32_character_long", ["POST", "PUT", "DELETE"]));
 
+// Initialize i18next and i18next-http-middleware
+const languageDetector = new middleware.LanguageDetector(null, {
+  order: ["session", "cookie", "header"],
+  lookupSession: "language",
+});
+
+i18next
+  .use(Backend)
+  .use(languageDetector)
+  .init({
+    fallbackLng: "en",
+    backend: {
+      loadPath: "./locales/{{lng}}.json",
+    },
+  });
+// i18next
+//   .use(Backend)
+//   .use(middleware.LanguageDetector)
+//   .init({
+//     fallbackLng: 'en',
+//     backend: {
+//       loadPath: './locales/{{lng}}.json'
+//     }
+//   })
+
 // Set EJS as view engine
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(flash());
 app.use(express.static(path.join(__dirname, "public")));
-app.use(middleware.handle(i18next));
+
+// Configure session middleware
 app.use(
   session({
     secret: "my-super-secret-key-21728172615261562",
@@ -44,15 +69,22 @@ app.use(
     },
   })
 );
-
+app.use(middleware.handle(i18next));
+app.use((req, res, next) => {
+  console.log("Detected language:", req.language);
+  next();
+});
+// Initialize Passport middleware
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Set local variables for flash messages
 app.use(function (request, response, next) {
   response.locals.messages = request.flash();
   next();
 });
 
+// Passport configuration
 passport.use(
   new localStrategy(
     {
@@ -62,20 +94,29 @@ passport.use(
     (username, password, done) => {
       User.findOne({ where: { email: username } })
         .then(async (user) => {
+          if (!user) {
+            return done(null, false, { message: i18next.t("user_not_found") });
+          }
+
           const result = await bcrypt.compare(password, user.password);
           if (result) {
             return done(null, user);
           } else {
-            return done(null, false, { message: "Invalid password" });
+            return done(null, false, {
+              message: i18next.t("invalid_password"),
+            });
           }
         })
         .catch((error) => {
-          return done(null, false, { message: "Invalid Email or password" });
+          return done(null, false, {
+            message: i18next.t("invalid_credentials"),
+          });
         });
     }
   )
 );
 
+// Serialize and deserialize user
 passport.serializeUser((user, done) => {
   console.log("Serializing user in session : ", user.id);
   done(null, user.id);
@@ -91,37 +132,33 @@ passport.deserializeUser((id, done) => {
       done(error, null);
     });
 });
-i18next
-  .use(Backend)
-  .use(middleware.LanguageDetector)
-  .init({
-    fallbackLng: "ja",
-    backend: {
-      loadPath: "./locales/{{lng}}.json",
-    },
-  });
-// i18n.configure({
-//   locales: ['en', 'ja'],
-//   directory: path.join(__dirname, 'locales'),
-//   defaultLocale: 'ja',
-//   objectNotation: true
-// })
-// app.use(i18n.init)
 
 app.get("/", async function (request, response) {
   try {
     if (request.user) {
       return response.redirect("/todos");
     } else {
-      response.render("index", {
-        title: "Todo application",
-        csrfToken: request.csrfToken(),
-      });
+      response.render(
+        "index",
+        {
+          title: "Todo application",
+          csrfToken: request.csrfToken(),
+          lang: request.session.language || "en",
+        },
+        console.log("Language:", request.session.language || "en")
+      );
     }
   } catch (error) {
     console.log(error);
     return response.status(422).json(error);
   }
+});
+
+app.post("/changeLanguage", (req, res) => {
+  const { language } = req.body;
+  req.session.language = language;
+  console.log(language);
+  res.redirect("/");
 });
 
 app.get(
@@ -145,6 +182,7 @@ app.get(
           completedItems,
           allTodos,
           csrfToken: request.csrfToken(),
+          lang: request.session.language || "en",
         });
       } else {
         response.json({
@@ -169,6 +207,7 @@ app.get("/signup", (request, response) => {
   response.render("signup", {
     title: "Signup",
     csrfToken: request.csrfToken(),
+    lang: request.session.language || "en",
   });
 });
 
@@ -178,11 +217,12 @@ app.post("/users", async (request, response) => {
     request.body.email.length != 0 &&
     request.body.password.length == 0
   ) {
-    request.flash("error", "Password can not be Empty");
+    request.flash("error", i18next.t("password_empty"));
     return response.redirect("/signup");
   }
+
   const hashedPwd = await bcrypt.hash(request.body.password, saltRounds);
-  console.log(hashedPwd);
+
   try {
     const user = await User.create({
       firstName: request.body.firstName,
@@ -190,6 +230,7 @@ app.post("/users", async (request, response) => {
       email: request.body.email,
       password: hashedPwd,
     });
+
     request.login(user, (err) => {
       if (err) {
         console.log(err);
@@ -205,10 +246,10 @@ app.post("/users", async (request, response) => {
       console.log(errMsg);
       errMsg.forEach((message) => {
         if (message == "Validation notEmpty on firstName failed") {
-          request.flash("error", "First Name cannot be empty");
+          request.flash("error", i18next.t("first_name_empty"));
         }
         if (message == "Validation notEmpty on email failed") {
-          request.flash("error", "Email cannot be empty");
+          request.flash("error", i18next.t("email_empty"));
         }
       });
       response.redirect("/signup");
@@ -217,7 +258,7 @@ app.post("/users", async (request, response) => {
       console.log(errMsg);
       errMsg.forEach((message) => {
         if (message == "email must be unique") {
-          request.flash("error", "Email already used");
+          request.flash("error", i18next.t("email_unique"));
         }
       });
       response.redirect("/signup");
@@ -232,7 +273,11 @@ app.get("/login", (request, response) => {
   if (request.isAuthenticated()) {
     return response.redirect("/todos");
   }
-  response.render("login", { title: "Login", csrfToken: request.csrfToken() });
+  response.render("login", {
+    title: "Login",
+    csrfToken: request.csrfToken(),
+    lang: request.session.language || "en",
+  });
 });
 
 app.post(
@@ -264,24 +309,6 @@ app.get("/homepage", (request, response, next) => {
     response.redirect("/");
   });
 });
-
-// app.get("/Login", (request, response, next) => {
-//   request.logout((err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     response.redirect("/login");
-//   });
-// });
-
-// app.get("/Signup", (request, response, next) => {
-//   request.logout((err) => {
-//     if (err) {
-//       return next(err);
-//     }
-//     response.redirect("/signup");
-//   });
-// });
 
 app.get("/todos", async function (_request, response) {
   console.log("Processing list of all Todos");
@@ -325,10 +352,10 @@ app.post(
         console.log(errMsg);
         errMsg.forEach((message) => {
           if (message == "Validation isDate on dueDate failed") {
-            request.flash("error", "Due date is empty");
+            request.flash("error", i18next.t("due_date_empty"));
           }
           if (message == "Validation len on title failed") {
-            request.flash("error", "Title length should be atleast 5");
+            request.flash("error", i18next.t("title_length_error"));
           }
         });
         response.redirect("/todos");

@@ -1,4 +1,4 @@
-<h5 style="display: inline" title="Overdue" id="Overdue" class="py-2">
+<h5 style="display: inline" title="<%= title %>" class="py-2">
   <%= title %>
 </h5>
 <span
@@ -20,7 +20,8 @@
         for="todo-checkbox-<%= data[i].id %>"
         class="ml-2 text-sm text-gray-600 cursor-pointer"
       >
-        <%= data[i].title %>
+        <%= data[i].title %> (<%= new Intl.DateTimeFormat("es-ES", { year: "numeric", month: "long", day: "numeric" }).format(new Date(data[i].createdAt)) %>)
+        at <%= new Intl.DateTimeFormat("de-DE", { hour: "numeric", minute: "numeric", second: "numeric" }).format(new Date(data[i].createdAt)) %>
       </label>
       <a
         href="#"

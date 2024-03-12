@@ -1,6 +1,6 @@
 const app = require("./app");
-app.listen(3200, () => {
-  console.log("Started express server at 3200");
+app.listen(3201, () => {
+  console.log("Started express server at 3201");
 });
 
 // require('dotenv').config()
