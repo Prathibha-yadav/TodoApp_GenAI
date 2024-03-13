@@ -13,12 +13,12 @@
     <div class="grid grid-cols-6">
         <div class="col-start-3 col-span-2">
             <%- include('header') %>
-            <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= t('home_link') %></a>
-            <h6 class="py-4"><%= t('signup_title') %></h6>
+            <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= i18next.t('home_link') %></a>
+            <h6 class="py-4"><%= i18next.t('signup_title') %></h6>
             <form action="/users" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <div class="py-3">
-                    <label for="firstName"><%= t('first_name_label') %>: </label>
+                    <label for="firstName"><%= i18next.t('first_name_label') %>: </label>
                     <input
                         type="text"
                         name="firstName"
@@ -26,7 +26,7 @@
                     />
                 </div>
                 <div class="py-3">
-                    <label for="lastName"><%= t('last_name_label') %>: </label>
+                    <label for="lastName"><%= i18next.t('last_name_label') %>: </label>
                     <input
                         type="text"
                         name="lastName"
@@ -34,7 +34,7 @@
                     />
                 </div>
                 <div class="py-3">
-                    <label for="email"><%= t('email_label') %></label>
+                    <label for="email"><%= i18next.t('email_label') %></label>
                     <input
                         type="email"
                         name="email"
@@ -42,7 +42,7 @@
                     />
                 </div>
                 <div class="py-3">
-                    <label for="password"><%= t('password_label') %></label>
+                    <label for="password"><%= i18next.t('password_label') %></label>
                     <input
                         type="password"
                         name="password"
@@ -54,7 +54,7 @@
                         type="submit"
                         class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2"
                     >
-                        <%= t('signup_button') %>
+                        <%= i18next.t('signup_button') %>
                     </button>
                 </div>
             </form>

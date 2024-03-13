@@ -17,12 +17,13 @@
       %>,<%= data[i].completed %>)" class="w-4 h-4 text-blue-600 bg-gray-100
       rounded border-gray-300" >
       <label
-        for="todo-checkbox-<%= data[i].id %>"
-        class="ml-2 text-sm text-gray-600 cursor-pointer"
-      >
-        <%= data[i].title %> (<%= new Intl.DateTimeFormat("es-ES", { year: "numeric", month: "long", day: "numeric" }).format(new Date(data[i].createdAt)) %>)
-        at <%= new Intl.DateTimeFormat("de-DE", { hour: "numeric", minute: "numeric", second: "numeric" }).format(new Date(data[i].createdAt)) %>
-      </label>
+      for="todo-checkbox-<%= data[i].id %>"
+      class="ml-2 text-sm text-gray-600 cursor-pointer"
+    >
+      <%= data[i].title %> (<%= new Intl.DateTimeFormat(currentLanguage, { year: "numeric", month: "long", day: "numeric" }).format(new Date(data[i].createdAt)) %>)
+      at <%= new Intl.DateTimeFormat(lang, { hour: "numeric", minute: "numeric", second: "numeric" }).format(new Date(data[i].createdAt)) %>
+  </label>
+  
       <a
         href="#"
         class="ml-2 hidden trash-icon ml-2"

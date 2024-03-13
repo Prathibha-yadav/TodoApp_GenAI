@@ -42,15 +42,6 @@ i18next
       loadPath: "./locales/{{lng}}.json",
     },
   });
-// i18next
-//   .use(Backend)
-//   .use(middleware.LanguageDetector)
-//   .init({
-//     fallbackLng: 'en',
-//     backend: {
-//       loadPath: './locales/{{lng}}.json'
-//     }
-//   })
 
 // Set EJS as view engine
 app.set("view engine", "ejs");
@@ -71,6 +62,7 @@ app.use(
 );
 app.use(middleware.handle(i18next));
 app.use((req, res, next) => {
+  req.language = req.session.language || "en";
   console.log("Detected language:", req.language);
   next();
 });
@@ -144,6 +136,7 @@ app.get("/", async function (request, response) {
           title: "Todo application",
           csrfToken: request.csrfToken(),
           lang: request.session.language || "en",
+          i18next,
         },
         console.log("Language:", request.session.language || "en")
       );
@@ -156,10 +149,11 @@ app.get("/", async function (request, response) {
 
 app.post("/changeLanguage", (req, res) => {
   const { language } = req.body;
-  req.session.language = language;
+  i18next.changeLanguage(language);
   console.log(language);
   res.redirect("/");
 });
+app.use(middleware.handle(i18next));
 
 app.get(
   "/todos",
@@ -172,6 +166,8 @@ app.get(
       const dueLaterItems = await Todo.dueLater(loggedInUser);
       const completedItems = await Todo.completedItems(loggedInUser);
       const allTodos = await Todo.getTodos();
+      const lang = request.session.language || "en";
+      const currentLanguage = i18next.language;
       if (request.accepts("html")) {
         response.render("todos", {
           loggedInUser: request.user,
@@ -182,7 +178,9 @@ app.get(
           completedItems,
           allTodos,
           csrfToken: request.csrfToken(),
-          lang: request.session.language || "en",
+          lang,
+          currentLanguage,
+          i18next,
         });
       } else {
         response.json({
@@ -208,6 +206,7 @@ app.get("/signup", (request, response) => {
     title: "Signup",
     csrfToken: request.csrfToken(),
     lang: request.session.language || "en",
+    i18next,
   });
 });
 
@@ -277,6 +276,7 @@ app.get("/login", (request, response) => {
     title: "Login",
     csrfToken: request.csrfToken(),
     lang: request.session.language || "en",
+    i18next,
   });
 });
 

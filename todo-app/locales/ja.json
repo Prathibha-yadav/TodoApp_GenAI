@@ -31,5 +31,7 @@
   "email_empty": "メールアドレスを入力してください",
   "email_unique": "このメールアドレスはすでに使用されています",
   "due_date_empty": "期限が空です",
-  "title_length_error": "タイトルは少なくとも5文字以上である必要があります"
+  "title_length_error": "タイトルは少なくとも5文字以上である必要があります",
+  "date_format": "{{date, date, year}}",
+    "time_format": "{{date, time, hour12}}:{{date, time, minute}}"
 }

@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="csrf-token" content="<%= csrfToken %>" />
-    <title><%= t('todo_app_title') %></title>
+    <title><%= i18next.t('todo_app_title') %></title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="./css/styles.css" />
 </head>
@@ -13,12 +13,12 @@
     <div class="grid grid-cols-6">
         <div class="col-start-3 col-span-2">
             <%- include('header') %>
-            <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= t('home_link') %></a>
-            <h6 class="py-4"><%= t('signin_title') %></h6>
+            <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= i18next.t('home_link') %></a>
+            <h6 class="py-4"><%= i18next.t('signin_title') %></h6>
             <form action="/session" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
                 <div class="py-3">
-                    <label for="email"><%= t('email_label') %></label>
+                    <label for="email"><%= i18next.t('email_label') %></label>
                     <input
                         type="email"
                         name="email"
@@ -26,7 +26,7 @@
                     />
                 </div>
                 <div class="py-3">
-                    <label for="password"><%= t('password_label') %></label>
+                    <label for="password"><%= i18next.t('password_label') %></label>
                     <input
                         type="password"
                         name="password"
@@ -38,7 +38,7 @@
                         type="submit"
                         class="text-white bg-green-600 hover:bg-green-800 font-medium rounded px-5 py-2"
                     >
-                        <%= t('signin_link') %>
+                        <%= i18next.t('signin_link') %>
                     </button>
                 </div>
             </form>

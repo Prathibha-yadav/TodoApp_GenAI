@@ -44,7 +44,7 @@
           .catch((err) => console.error(err));
       }
     </script>
-    <title><%= t('todo_app') %></title>
+    <title><%= i18next.t('todo_app') %></title>
   </head>
   <body>
     <div class="grid grid-cols-6">
@@ -53,9 +53,9 @@
         <%= loggedInUser.firstName %>
                     <%= loggedInUser.lastName %><br>
                     <div>
-                      <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= t('home_link') %></a>
+                      <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= i18next.t('home_link') %></a>
                   </div>
-                  <div><a class="bg-red-600 text-white px-3 py-0 rounded font-medium mr-2 mb mt-5" href="/signout"><%= t('signout_link') %></a></div>
+                  <div><a class="bg-red-600 text-white px-3 py-0 rounded font-medium mr-2 mb mt-5" href="/signout"><%= i18next.t('signout_link') %></a></div>
                   
       
         <form action="/todos" method="post">
@@ -83,7 +83,7 @@
                 type="submit"
                 class="bg-green-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb"
               >
-              <%= t('add_button') %>
+              <%= i18next.t('add_button') %>
               </button>
             </div>
           </div>
@@ -94,13 +94,12 @@
           <% } %>
         <% } %></div>
         <div>
-          <%-
-          include('todo.ejs', {title: t('overdue_title'), data: overDueItems}) %> <%-
-          include('todo.ejs', {title: t('due_today_title'), data: dueTodayItems}) %> <%-
-          include('todo.ejs', {title: t('due_later_title'), data: dueLaterItems}) %> <%-
-          include('todo.ejs', {title: t('completed_title'), data: completedItems})
-          %>
+          <%- include('todo.ejs', { title: i18next.t('overdue_title'), data: overDueItems, lng: lang , currentLanguage}) %>
+          <%- include('todo.ejs', { title: i18next.t('due_today_title'), data: dueTodayItems, lng: lang, currentLanguage }) %>
+          <%- include('todo.ejs', { title: i18next.t('due_later_title'), data: dueLaterItems, lng: lang , currentLanguage}) %>
+          <%- include('todo.ejs', { title: i18next.t('completed_title'), data: completedItems, lng: lang , currentLanguage}) %>
         </div>
+        
         <div><%- include('footer') %></div>
       </div>
     </div>
