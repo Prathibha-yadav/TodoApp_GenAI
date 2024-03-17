@@ -156,7 +156,7 @@ app.get("/", async function (request, response) {
 app.post("/changeLanguage", (req, res) => {
   try {
     const { language } = req.body;
-    if (!language) {
+    if (language) {
       throw new Error("Language parameter missing");
     }
     i18next.changeLanguage(language);

@@ -1,4 +1,3 @@
-/* eslint-disable handle-callback-err */
 const express = require("express");
 const Sentry = require("@sentry/node");
 const { Integrations } = require("@sentry/tracing");
@@ -15,12 +14,12 @@ function initializeSentry() {
     tracesSampleRate: 1.0,
   });
 
-  app.use(Sentry.Handlers.requestHandler());
-  app.use(Sentry.Handlers.tracingHandler());
+  // app.use(Sentry.Handlers.requestHandler())
+  // app.use(Sentry.Handlers.tracingHandler())
 
   app.use(function onError(err, req, res, next) {
-    console.error(err);
-    res.status(500).send("Internal Server Error");
+    console.log(err);
+    res.status(422).send(err);
   });
 }
 
