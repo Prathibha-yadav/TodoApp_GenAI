@@ -33,5 +33,5 @@
   "due_date_empty": "Due date is empty",
   "title_length_error": "Title length should be at least 5",
   "date_format": "{{date, date, year}}",
-    "time_format": "{{date, time, hour12}}:{{date, time, minute}}"
+  "time_format": "{{date, time, hour12}}:{{date, time, minute}}"
 }

@@ -21,6 +21,10 @@
   "author": "prathibha <prathibhayadavboini@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@sentry/cli": "^2.30.2",
+    "@sentry/node": "^7.107.0",
+    "@sentry/profiling-node": "^7.107.0",
+    "@sentry/tracing": "^7.107.0",
     "bcrypt": "^5.1.0",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",

@@ -33,5 +33,5 @@
   "due_date_empty": "La fecha de vencimiento está vacía",
   "title_length_error": "El título debe tener al menos 5 caracteres",
   "date_format": "{{date, date, year}}",
-    "time_format": "{{date, time, hour24}}:{{date, time, minute}}"
+  "time_format": "{{date, time, hour24}}:{{date, time, minute}}"
 }

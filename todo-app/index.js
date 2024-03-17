@@ -1,4 +1,9 @@
 const app = require("./app");
+const { initializeSentry } = require("./sentry");
+
+// Initialize Sentry
+initializeSentry();
+
 app.listen(3201, () => {
   console.log("Started express server at 3201");
 });

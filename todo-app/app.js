@@ -17,11 +17,15 @@ const localStrategy = require("passport-local");
 const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
+const Sentry = require("@sentry/node"); // Import Sentry
+const { initializeSentry } = require("./sentry");
 
 const i18next = require("i18next");
 const Backend = require("i18next-fs-backend");
 const middleware = require("i18next-http-middleware");
 
+// Initialize Sentry
+initializeSentry();
 app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser("sshh! some secret string"));
@@ -135,25 +139,35 @@ app.get("/", async function (request, response) {
         {
           title: "Todo application",
           csrfToken: request.csrfToken(),
-          lang: request.session.language || "en",
+          lang: i18next.language || "en",
           i18next,
         },
         console.log("Language:", request.session.language || "en")
       );
     }
   } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
+    // Capture and report the error to Sentry
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
   }
 });
 
 app.post("/changeLanguage", (req, res) => {
-  const { language } = req.body;
-  i18next.changeLanguage(language);
-  console.log(language);
-  res.redirect("/");
+  try {
+    const { language } = req.body;
+    if (!language) {
+      throw new Error("Language parameter missing");
+    }
+    i18next.changeLanguage(language);
+    console.log(language);
+    res.redirect("/");
+  } catch (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
-app.use(middleware.handle(i18next));
 
 app.get(
   "/todos",
@@ -192,22 +206,30 @@ app.get(
         });
       }
     } catch (error) {
-      console.log(error);
-      return response.status(422).json(error);
+      // Capture and report the error to Sentry
+      Sentry.captureException(error);
+      console.error(error);
+      return response.status(500).json({ error: "Internal server error" });
     }
   }
 );
 
 app.get("/signup", (request, response) => {
-  if (request.isAuthenticated()) {
-    return response.redirect("/todos");
+  try {
+    if (request.isAuthenticated()) {
+      return response.redirect("/todos");
+    }
+    response.render("signup", {
+      title: "Signup",
+      csrfToken: request.csrfToken(),
+      lang: i18next.language || "en",
+      i18next,
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
   }
-  response.render("signup", {
-    title: "Signup",
-    csrfToken: request.csrfToken(),
-    lang: request.session.language || "en",
-    i18next,
-  });
 });
 
 app.post("/users", async (request, response) => {
@@ -239,6 +261,7 @@ app.post("/users", async (request, response) => {
     });
   } catch (error) {
     console.log(error);
+    Sentry.captureException(error);
 
     if (error.name == "SequelizeValidationError") {
       const errMsg = error.errors.map((error) => error.message);
@@ -262,22 +285,29 @@ app.post("/users", async (request, response) => {
       });
       response.redirect("/signup");
     } else {
-      console.log(error);
-      return response.status(422).json(error);
+      Sentry.captureException(error);
+      console.error(error);
+      return response.status(500).json({ error: "Internal server error" });
     }
   }
 });
 
 app.get("/login", (request, response) => {
-  if (request.isAuthenticated()) {
-    return response.redirect("/todos");
+  try {
+    if (request.isAuthenticated()) {
+      return response.redirect("/todos");
+    }
+    response.render("login", {
+      title: "Login",
+      csrfToken: request.csrfToken(),
+      lang: i18next.language || "en",
+      i18next,
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
   }
-  response.render("login", {
-    title: "Login",
-    csrfToken: request.csrfToken(),
-    lang: request.session.language || "en",
-    i18next,
-  });
 });
 
 app.post(
@@ -287,27 +317,45 @@ app.post(
     failureFlash: true,
   }),
   async (request, response) => {
-    console.log(request.user);
-    response.redirect("/todos");
+    try {
+      console.log(request.user);
+      response.redirect("/todos");
+    } catch (error) {
+      Sentry.captureException(error);
+      console.error(error);
+      return response.status(500).json({ error: "Internal server error" });
+    }
   }
 );
 
 app.get("/signout", (request, response, next) => {
-  request.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    response.redirect("/");
-  });
+  try {
+    request.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      response.redirect("/");
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.get("/homepage", (request, response, next) => {
-  request.logout((err) => {
-    if (err) {
-      return next(err);
-    }
-    response.redirect("/");
-  });
+  try {
+    request.logout((err) => {
+      if (err) {
+        return next(err);
+      }
+      response.redirect("/");
+    });
+  } catch (error) {
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
+  }
 });
 
 app.get("/todos", async function (_request, response) {
@@ -316,8 +364,9 @@ app.get("/todos", async function (_request, response) {
     const todo = await Todo.findAll();
     return response.json(todo);
   } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -326,8 +375,9 @@ app.get("/todos/:id", async function (request, response) {
     const todo = await Todo.findByPk(request.params.id);
     return response.json(todo);
   } catch (error) {
-    console.log(error);
-    return response.status(422).json(error);
+    Sentry.captureException(error);
+    console.error(error);
+    return response.status(500).json({ error: "Internal server error" });
   }
 });
 
@@ -360,8 +410,9 @@ app.post(
         });
         response.redirect("/todos");
       } else {
-        console.log(error);
-        return response.status(422).json(error);
+        Sentry.captureException(error);
+        console.error(error);
+        return response.status(500).json({ error: "Internal server error" });
       }
     }
   }
@@ -379,8 +430,9 @@ app.put(
       );
       return response.json(updatedTodo);
     } catch (error) {
-      console.log(error);
-      return response.status(422).json(error);
+      Sentry.captureException(error);
+      console.error(error);
+      return response.status(422).json({ error: "Internal server error" });
     }
   }
 );
@@ -394,8 +446,9 @@ app.delete(
       await Todo.remove(request.params.id, request.user.id);
       return response.json({ success: true });
     } catch (error) {
-      console.log(error);
-      return response.status(422).json(error);
+      Sentry.captureException(error);
+      console.error(error);
+      return response.status(422).json({ error: "Internal server error" });
     }
   }
 );
