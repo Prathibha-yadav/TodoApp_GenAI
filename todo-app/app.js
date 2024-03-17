@@ -148,15 +148,15 @@ app.get("/", async function (request, response) {
   } catch (error) {
     // Capture and report the error to Sentry
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
 app.post("/changeLanguage", (req, res) => {
   try {
     const { language } = req.body;
-    if (!language) {
+    if (language) {
       throw new Error("Language parameter missing");
     }
     i18next.changeLanguage(language);
@@ -164,8 +164,8 @@ app.post("/changeLanguage", (req, res) => {
     res.redirect("/");
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    res.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return res.status(422).json(error);
   }
 });
 
@@ -208,8 +208,8 @@ app.get(
     } catch (error) {
       // Capture and report the error to Sentry
       Sentry.captureException(error);
-      console.error(error);
-      return response.status(500).json({ error: "Internal server error" });
+      console.log(error);
+      return response.status(422).json(error);
     }
   }
 );
@@ -227,8 +227,8 @@ app.get("/signup", (request, response) => {
     });
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
@@ -286,8 +286,8 @@ app.post("/users", async (request, response) => {
       response.redirect("/signup");
     } else {
       Sentry.captureException(error);
-      console.error(error);
-      return response.status(500).json({ error: "Internal server error" });
+      console.log(error);
+      return response.status(422).json(error);
     }
   }
 });
@@ -305,8 +305,8 @@ app.get("/login", (request, response) => {
     });
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
@@ -322,8 +322,8 @@ app.post(
       response.redirect("/todos");
     } catch (error) {
       Sentry.captureException(error);
-      console.error(error);
-      return response.status(500).json({ error: "Internal server error" });
+      console.log(error);
+      return response.status(422).json(error);
     }
   }
 );
@@ -338,8 +338,8 @@ app.get("/signout", (request, response, next) => {
     });
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
@@ -353,8 +353,8 @@ app.get("/homepage", (request, response, next) => {
     });
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
@@ -365,8 +365,8 @@ app.get("/todos", async function (_request, response) {
     return response.json(todo);
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
@@ -376,8 +376,8 @@ app.get("/todos/:id", async function (request, response) {
     return response.json(todo);
   } catch (error) {
     Sentry.captureException(error);
-    console.error(error);
-    return response.status(500).json({ error: "Internal server error" });
+    console.log(error);
+    return response.status(422).json(error);
   }
 });
 
@@ -411,8 +411,8 @@ app.post(
         response.redirect("/todos");
       } else {
         Sentry.captureException(error);
-        console.error(error);
-        return response.status(500).json({ error: "Internal server error" });
+        console.log(error);
+        return response.status(422).json(error);
       }
     }
   }
@@ -431,8 +431,8 @@ app.put(
       return response.json(updatedTodo);
     } catch (error) {
       Sentry.captureException(error);
-      console.error(error);
-      return response.status(422).json({ error: "Internal server error" });
+      console.log(error);
+      return response.status(422).json(error);
     }
   }
 );
@@ -447,8 +447,8 @@ app.delete(
       return response.json({ success: true });
     } catch (error) {
       Sentry.captureException(error);
-      console.error(error);
-      return response.status(422).json({ error: "Internal server error" });
+      console.log(error);
+      return response.status(422).json(error);
     }
   }
 );
