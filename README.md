@@ -11,9 +11,7 @@ This repository contains the implementation details for the Tasks Manager projec
 
 - Users can sign up for a new account.
 - Existing users can log in and securely sign out.
-- <img width="318" alt="Screenshot 2024-03-29 171454" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/9722466f-7bd4-458b-8c7f-1193a0d32e90">
-- <img width="366" alt="Screenshot 2024-03-29 171509" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/3a12eb5c-4f0c-4afc-90b7-91b50da96704">
-- <img width="361" alt="Screenshot 2024-03-29 171524" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/d45cd5bd-3aec-422e-be00-519bcde31ae5">
+- <img width="318" alt="Screenshot 2024-03-29 171454" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/9722466f-7bd4-458b-8c7f-1193a0d32e90"> <img width="366" alt="Screenshot 2024-03-29 171509" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/3a12eb5c-4f0c-4afc-90b7-91b50da96704"> <img width="361" alt="Screenshot 2024-03-29 171524" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/d45cd5bd-3aec-422e-be00-519bcde31ae5">
 
 
 
@@ -30,7 +28,7 @@ This repository contains the implementation details for the Tasks Manager projec
 ### 4. Task Deletion
 
 - Users can delete a task by clicking on the delete icon.
-- - <img width="355" alt="Screenshot 2024-03-19 222135" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/b8b4b2f5-b1c6-4130-a907-c66c2b95d095">
+- <img width="355" alt="Screenshot 2024-03-19 222135" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/b8b4b2f5-b1c6-4130-a907-c66c2b95d095">
 
 ### 5. Testing Strategies
 
@@ -71,7 +69,7 @@ This repository contains the implementation details for the Tasks Manager projec
 - Error logging and debugging practices have been followed, utilizing Sentry for efficient bug detection and resolution.
 - <img width="960" alt="Screenshot 2024-03-19 222207" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/00feb4f3-caad-42b6-b7af-c6142e4ad7e4">
 
-- <img width="960" alt="Screenshot 2024-03-17 131518" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/2e32f7c2-fc8f-4db0-a184-ca55f00d0fc9">
+<img width="960" alt="Screenshot 2024-03-17 131518" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/2e32f7c2-fc8f-4db0-a184-ca55f00d0fc9">
 
 ## Notifications
 
