@@ -11,10 +11,11 @@ This repository contains the implementation details for the Tasks Manager projec
 
 - Users can sign up for a new account.
 - Existing users can log in and securely sign out.
-- <img width="318" alt="Screenshot 2024-03-29 171454" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/9722466f-7bd4-458b-8c7f-1193a0d32e90"> <img width="366" alt="Screenshot 2024-03-29 171509" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/3a12eb5c-4f0c-4afc-90b7-91b50da96704"> <img width="361" alt="Screenshot 2024-03-29 171524" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/d45cd5bd-3aec-422e-be00-519bcde31ae5">
+- <img width="318" alt="Screenshot 2024-03-29 171454" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/9722466f-7bd4-458b-8c7f-1193a0d32e90"> 
 
+<img width="361" alt="Screenshot 2024-03-29 171524" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/d45cd5bd-3aec-422e-be00-519bcde31ae5"> 
 
-
+<img width="366" alt="Screenshot 2024-03-29 171509" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/3a12eb5c-4f0c-4afc-90b7-91b50da96704"> 
 
 ### 2. Task Management
 
