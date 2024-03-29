@@ -4,8 +4,8 @@ const { initializeSentry } = require("./sentry");
 // Initialize Sentry
 initializeSentry();
 
-app.listen(3201, () => {
-  console.log("Started express server at 3201");
+app.listen(3200, () => {
+  console.log("Started express server at 3200");
 });
 
 // require('dotenv').config()
