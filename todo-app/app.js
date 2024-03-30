@@ -129,7 +129,6 @@ passport.deserializeUser((id, done) => {
       done(error, null);
     });
 });
-
 // require('dotenv').config()
 
 // const openai = new OpenAI({
