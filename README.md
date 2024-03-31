@@ -12,17 +12,21 @@ This repository contains the implementation details for the Tasks Manager projec
 - Users can sign up for a new account.
 - Existing users can log in and securely sign out.
 
--![alt text](public/image/Screenshot 2024-03-31 173038.png)
+-![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/8507f8ee-458d-4a9c-a18d-dd75ed490252)
 
- ![alt text](public/image/Screenshot 2024-03-31 173737.png)
 
- ![alt text](public/image/Screenshot 2024-03-31 173302.png)
+ ![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/66256d4a-45e8-4394-8c32-b7a9b6af6004)
+
+
+ ![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/7eced063-20e8-4716-aba7-1a210ce0db5a)
+
 
 ### 2. Task Management
 
 - Users can add a task by providing a name and due date.
 - Tasks are automatically categorized into "Overdue," "Due Today," and "Due Later" based on the provided due date.
-- ![alt text](public/image/Screenshot 2024-03-31 174254.png)
+- ![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/fc7a0ba8-95cc-47dd-bf42-9c9f4b6860c2)
+
 
 ### 3. Task Completion
 
@@ -32,8 +36,7 @@ This repository contains the implementation details for the Tasks Manager projec
 
 - Users can delete a task by clicking on the delete icon.
 
-- ![alt text](public/image/Screenshot 2024-03-31 173245.png)
-
+- ![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/99882445-a6b5-454b-8af0-8518cfb94f8c)
 
 ### 5. Testing Strategies
 
