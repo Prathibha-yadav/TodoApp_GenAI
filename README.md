@@ -12,17 +12,17 @@ This repository contains the implementation details for the Tasks Manager projec
 - Users can sign up for a new account.
 - Existing users can log in and securely sign out.
 
--![alt text](<Screenshot 2024-03-31 173038.png>)
+-![alt text](public/image/Screenshot 2024-03-31 173038.png)
 
- ![alt text](<Screenshot 2024-03-31 173737.png>)
+ ![alt text](public/image/Screenshot 2024-03-31 173737.png)
 
- ![alt text](<Screenshot 2024-03-31 173302.png>)
+ ![alt text](public/image/Screenshot 2024-03-31 173302.png)
 
 ### 2. Task Management
 
 - Users can add a task by providing a name and due date.
 - Tasks are automatically categorized into "Overdue," "Due Today," and "Due Later" based on the provided due date.
-- ![alt text](<Screenshot 2024-03-31 174254.png>)
+- ![alt text](public/image/Screenshot 2024-03-31 174254.png)
 
 ### 3. Task Completion
 
@@ -32,7 +32,8 @@ This repository contains the implementation details for the Tasks Manager projec
 
 - Users can delete a task by clicking on the delete icon.
 
-- ![alt text](<Screenshot 2024-03-31 173245.png>)
+- ![alt text](public/image/Screenshot 2024-03-31 173245.png)
+
 
 ### 5. Testing Strategies
 
