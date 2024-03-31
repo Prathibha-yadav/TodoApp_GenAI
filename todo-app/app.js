@@ -112,7 +112,6 @@ passport.use(
     }
   )
 );
-
 // Serialize and deserialize user
 passport.serializeUser((user, done) => {
   console.log("Serializing user in session : ", user.id);
