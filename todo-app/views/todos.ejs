@@ -11,6 +11,7 @@
       var token = document
         .querySelector('meta[name="csrf-token"]')
         .getAttribute("content");
+        
       function updateTodo(id, complete) {
         fetch(`/todos/${id}`, {
           method: "put",
@@ -99,11 +100,12 @@
           <%- include('todo.ejs', { title: i18next.t('due_later_title'), data: dueLaterItems, lng: lang , currentLanguage}) %>
           <%- include('todo.ejs', { title: i18next.t('completed_title'), data: completedItems, lng: lang , currentLanguage}) %>
         </div>
-        <!-- <form action="/add-natural" method="POST" class="flex items-center justify-center mt-8">
+        <form action="/addTodoWithGemini" method="POST" class="flex items-center justify-center mt-8">
           <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
-          <input type="text" name="todo" placeholder="Ask AI to add a To-do item" class="border border-gray-300 py-2 px-4 rounded-md mr-2 focus:outline-none focus:border-blue-500">
+          <input type="text" name="prompt" placeholder="Ask AI to add a To-do item" class="border border-gray-300 py-2 px-4 rounded-md mr-2 focus:outline-none focus:border-blue-500">
           <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-md focus:outline-none hover:bg-blue-600">Add</button>
-      </form> -->
+      </form>
+      
       
         <div><%- include('footer') %></div>
       </div>

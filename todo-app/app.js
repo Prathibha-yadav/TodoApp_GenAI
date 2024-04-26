@@ -25,6 +25,7 @@ const i18next = require("i18next");
 const Backend = require("i18next-fs-backend");
 const middleware = require("i18next-http-middleware");
 // const OpenAI = require('openai')
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 // Initialize Sentry
 initializeSentry();
 app.use(bodyParser.json());
@@ -128,36 +129,89 @@ passport.deserializeUser((id, done) => {
       done(error, null);
     });
 });
-// require('dotenv').config()
 
-// const openai = new OpenAI({
-//   apikey: process.env.OPENAI_API_KEY
-// })
-// async function askChatGPT (question) {
-//   try {
-//     const chatCompletion = await openai.chat.completions.create({
-//       messages: [{ role: 'user', content: question }],
-//       model: 'gpt-3.5-turbo'
-//     })
-//     return chatCompletion.choices[0].message.content
-//   } catch (error) {
-//     console.error('Error making a query to ChatGPT:', error)
-//     return null
-//   }
-// }
-// async function addTodoWithChatGPT (question) {
-//   const suggestion = await askChatGPT(question)
+require("dotenv").config();
 
-//   if (suggestion) {
-//     console.log('Response from ChatGPT:', suggestion)
-//   } else {
-//     console.log('No response received from ChatGPT.')
-//   }
-// }
+const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
-// app.post('/add-natural', (req, res) => {
-//   addTodoWithChatGPT(req.body.naturalText)
-// })
+app.post(
+  "/addTodoWithGemini",
+  connectEnsureLogin.ensureLoggedIn(),
+  async (req, res) => {
+    const prompt = req.body.prompt;
+    try {
+      // Fetch title and date from Gemini API
+      const { title, dueDate } = await getTitleAndDateFromGemini(prompt);
+
+      // Adding todo to the database
+      await Todo.addTodo({
+        title,
+        dueDate,
+        userId: req.user.id,
+      });
+
+      // Redirecting to todos page after adding the todo
+      return res.redirect("/todos");
+    } catch (error) {
+      console.error("Error adding todo with Gemini API:", error);
+      req.flash("error", "Error adding todo with Gemini API: " + error.message);
+      return res.redirect("/todos");
+    }
+  }
+);
+
+async function getTitleAndDateFromGemini(prompt) {
+  try {
+    // Strong system prompt to guide Gemini API
+    const systemPrompt =
+      "You are assisting a user in managing their tasks. Your task is to extract the to-do item and its due date from the given message. " +
+      "If the message contains a task followed by a due date, extract both. Otherwise, extract only the task. " +
+      "The due date should be in the format 'YYYY-MM-DD'. " +
+      "To compute relative dates, assume that the current timestamp is " +
+      new Date().toISOString() +
+      ". " +
+      "Return the title and due date in the format 'Title - Due Date'.";
+
+    // Fetch suggestion from Gemini API with the system prompt
+    const suggestion = await askGemini(systemPrompt + " " + prompt);
+
+    // Assuming the response format is "Title - Due Date"
+    const [title, date] = suggestion.split("-").map((str) => str.trim());
+    console.log("Extracted title and date: " + title + date);
+    if (!title || !date) {
+      throw new Error(
+        "Unable to extract the title and date from the suggestion."
+      );
+    }
+
+    // Validate and parse the due date
+    const dueDate = new Date(date);
+    if (isNaN(dueDate.getTime())) {
+      throw new Error("Invalid due date format.");
+    }
+
+    return { title, dueDate };
+  } catch (error) {
+    console.error("Error getting title and date from Gemini API:", error);
+    throw error;
+  }
+}
+
+async function askGemini(prompt) {
+  try {
+    // For text-only input, use the gemini-pro model
+    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    const text = await response.text();
+    console.log("Input by user:", text);
+    return text;
+  } catch (error) {
+    console.error("Error making a query to Gemini API:", error);
+    return null;
+  }
+}
 
 app.get("/", async function (request, response) {
   try {

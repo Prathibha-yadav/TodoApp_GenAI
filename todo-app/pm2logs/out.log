@@ -3439,3 +3439,534 @@
 2024-03-01 17:46 +05:30: Secure Started express server at 3300
 2024-03-01 17:46 +05:30: Secure Started express server at 3300
 2024-03-01 17:46 +05:30: Secure Started express server at 3300
+2024-04-16 11:57 +05:30: Started express server at 3200
+2024-04-16 11:57 +05:30: Started express server at 3200
+2024-04-16 11:57 +05:30: Started express server at 3200
+2024-04-16 11:57 +05:30: Started express server at 3200
+2024-04-16 12:39 +05:30: Detected language: en
+2024-04-16 12:39 +05:30: Language: en
+2024-04-16 12:39 +05:30: Detected language: en
+2024-04-16 12:39 +05:30: es
+2024-04-16 12:39 +05:30: Detected language: en
+2024-04-16 12:39 +05:30: Language: en
+2024-04-16 12:39 +05:30: Detected language: en
+2024-04-16 12:39 +05:30: ja
+2024-04-16 12:39 +05:30: Detected language: en
+2024-04-16 12:39 +05:30: Language: en
+2024-04-16 12:39 +05:30: Detected language: en
+2024-04-16 12:39 +05:30: ja
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: ja
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: Language: en
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "firstName", "lastName", "password", "email", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."email" = 'prath@mail' LIMIT 1; {
+  plain: true,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"User"."email" = 'prath@mail'`,
+  limit: 1,
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  attributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  tableNames: [ 'Users' ],
+  type: 'SELECT',
+  model: User
+}
+2024-04-16 12:40 +05:30: Serializing user in session :  1
+2024-04-16 12:40 +05:30: User {
+  dataValues: {
+    id: 1,
+    firstName: 'user1',
+    lastName: 'user',
+    password: '$2b$10$/EdXGEhm0XBoGR5D3igv0OQ3uRZ/kSZjbBFiZpARFY/RRyMJWQOiK',
+    email: 'prath@mail',
+    createdAt: 2024-04-07T09:13:51.940Z,
+    updatedAt: 2024-04-07T09:13:51.940Z
+  },
+  _previousDataValues: {
+    id: 1,
+    firstName: 'user1',
+    lastName: 'user',
+    password: '$2b$10$/EdXGEhm0XBoGR5D3igv0OQ3uRZ/kSZjbBFiZpARFY/RRyMJWQOiK',
+    email: 'prath@mail',
+    createdAt: 2024-04-07T09:13:51.940Z,
+    updatedAt: 2024-04-07T09:13:51.940Z
+  },
+  uniqno: 1,
+  _changed: Set(0) {},
+  _options: {
+    isNewRecord: false,
+    _schema: null,
+    _schemaDelimiter: '',
+    raw: true,
+    attributes: [
+      'id',
+      'firstName',
+      'lastName',
+      'password',
+      'email',
+      'createdAt',
+      'updatedAt'
+    ]
+  },
+  isNewRecord: false
+}
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: deserializing user from session:  1
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "firstName", "lastName", "password", "email", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."id" = 1; {
+  plain: true,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: '"User"."id" = 1',
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  attributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  tableNames: [ 'Users' ],
+  type: 'SELECT',
+  model: User
+}
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" < '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false ORDER BY "Todo"."id" ASC; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"Todo"."dueDate" < '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false`,
+  order: [ [ 'id', [Literal] ] ],
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" = '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false ORDER BY "Todo"."id" ASC; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"Todo"."dueDate" = '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false`,
+  order: [ [ 'id', [Literal] ] ],
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" > '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false ORDER BY "Todo"."id" ASC; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"Todo"."dueDate" > '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false`,
+  order: [ [ 'id', [Literal] ] ],
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."completed" = true AND "Todo"."userId" = 1; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: '"Todo"."completed" = true AND "Todo"."userId" = 1',
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:40 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo"; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:40 +05:30: Detected language: en
+2024-04-16 12:41 +05:30: Detected language: en
+2024-04-16 12:41 +05:30: en
+2024-04-16 12:41 +05:30: Detected language: en
+2024-04-16 12:41 +05:30: Language: en
+2024-04-16 12:41 +05:30: Detected language: en
+2024-04-16 12:41 +05:30: Language: en
+2024-04-16 12:41 +05:30: Detected language: en
+2024-04-16 12:42 +05:30: Detected language: en
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "firstName", "lastName", "password", "email", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."email" = 'prath@mail' LIMIT 1; {
+  plain: true,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"User"."email" = 'prath@mail'`,
+  limit: 1,
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  attributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  tableNames: [ 'Users' ],
+  type: 'SELECT',
+  model: User
+}
+2024-04-16 12:42 +05:30: Serializing user in session :  1
+2024-04-16 12:42 +05:30: User {
+  dataValues: {
+    id: 1,
+    firstName: 'user1',
+    lastName: 'user',
+    password: '$2b$10$/EdXGEhm0XBoGR5D3igv0OQ3uRZ/kSZjbBFiZpARFY/RRyMJWQOiK',
+    email: 'prath@mail',
+    createdAt: 2024-04-07T09:13:51.940Z,
+    updatedAt: 2024-04-07T09:13:51.940Z
+  },
+  _previousDataValues: {
+    id: 1,
+    firstName: 'user1',
+    lastName: 'user',
+    password: '$2b$10$/EdXGEhm0XBoGR5D3igv0OQ3uRZ/kSZjbBFiZpARFY/RRyMJWQOiK',
+    email: 'prath@mail',
+    createdAt: 2024-04-07T09:13:51.940Z,
+    updatedAt: 2024-04-07T09:13:51.940Z
+  },
+  uniqno: 1,
+  _changed: Set(0) {},
+  _options: {
+    isNewRecord: false,
+    _schema: null,
+    _schemaDelimiter: '',
+    raw: true,
+    attributes: [
+      'id',
+      'firstName',
+      'lastName',
+      'password',
+      'email',
+      'createdAt',
+      'updatedAt'
+    ]
+  },
+  isNewRecord: false
+}
+2024-04-16 12:42 +05:30: Detected language: en
+2024-04-16 12:42 +05:30: deserializing user from session:  1
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "firstName", "lastName", "password", "email", "createdAt", "updatedAt" FROM "Users" AS "User" WHERE "User"."id" = 1; {
+  plain: true,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: '"User"."id" = 1',
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  attributes: [
+    'id',
+    'firstName',
+    'lastName',
+    'password',
+    'email',
+    'createdAt',
+    'updatedAt'
+  ],
+  tableNames: [ 'Users' ],
+  type: 'SELECT',
+  model: User
+}
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" < '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false ORDER BY "Todo"."id" ASC; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"Todo"."dueDate" < '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false`,
+  order: [ [ 'id', [Literal] ] ],
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" = '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false ORDER BY "Todo"."id" ASC; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"Todo"."dueDate" = '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false`,
+  order: [ [ 'id', [Literal] ] ],
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."dueDate" > '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false ORDER BY "Todo"."id" ASC; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: `"Todo"."dueDate" > '2024-04-16' AND "Todo"."userId" = 1 AND "Todo"."completed" = false`,
+  order: [ [ 'id', [Literal] ] ],
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo" WHERE "Todo"."completed" = true AND "Todo"."userId" = 1; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  where: '"Todo"."completed" = true AND "Todo"."userId" = 1',
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 12:42 +05:30: Executing (default): SELECT "id", "title", "dueDate", "completed", "createdAt", "updatedAt", "userId" FROM "Todos" AS "Todo"; {
+  plain: false,
+  raw: false,
+  logging: [Function: log] { prototype: {} },
+  hooks: true,
+  rejectOnEmpty: false,
+  originalAttributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  attributes: [
+    'id',
+    'title',
+    'dueDate',
+    'completed',
+    'createdAt',
+    'updatedAt',
+    'userId'
+  ],
+  tableNames: [ 'Todos' ],
+  type: 'SELECT',
+  model: Todo
+}
+2024-04-16 17:25 +05:30: Started express server at 3200
+2024-04-16 17:25 +05:30: Started express server at 3200
+2024-04-16 17:25 +05:30: Started express server at 3200
+2024-04-16 17:25 +05:30: Started express server at 3200
