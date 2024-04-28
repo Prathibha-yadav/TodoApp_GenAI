@@ -38,7 +38,7 @@ This repository contains the implementation details for the Tasks Manager projec
 - Users can delete a task by clicking on the delete icon.
 -<img width="960" alt="Screenshot 2024-04-26 230059" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/b49e6bdc-cfe9-4b9e-a409-15529ea85dd3">
 
-### 5. Adding a Todo using AL
+### 5. Adding a Todo using AI
 
 - Users can add a todo using the Gemini API.
 - The input field accepts text entries.
