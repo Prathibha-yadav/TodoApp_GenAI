@@ -25,7 +25,8 @@ This repository contains the implementation details for the Tasks Manager projec
 
 - Users can add a task by providing a name and due date.
 - Tasks are automatically categorized into "Overdue," "Due Today," and "Due Later" based on the provided due date.
-- ![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/fc7a0ba8-95cc-47dd-bf42-9c9f4b6860c2)
+- <img width="960" alt="Screenshot 2024-04-26 230035" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/a2078e9d-0121-432f-8d92-9113f69ec0a8">
+- <img width="960" alt="Screenshot 2024-04-26 230048" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/9e8b83fc-724b-498f-8397-3b628c043a15">
 
 
 ### 3. Task Completion
@@ -35,10 +36,17 @@ This repository contains the implementation details for the Tasks Manager projec
 ### 4. Task Deletion
 
 - Users can delete a task by clicking on the delete icon.
+-<img width="960" alt="Screenshot 2024-04-26 230059" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/b49e6bdc-cfe9-4b9e-a409-15529ea85dd3">
 
-- ![image](https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/99882445-a6b5-454b-8af0-8518cfb94f8c)
+### 5. Adding a Todo using AL
 
-### 5. Testing Strategies
+- Users can add a todo using the Gemini API.
+- The input field accepts text entries.
+- Todos are automatically scheduled upon submission.
+- <img width="960" alt="Screenshot 2024-04-26 230112" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/6bbcfcca-08e1-4142-bc2e-779c46016290">
+- <img width="960" alt="Screenshot 2024-04-26 230129" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/2619dc14-00b6-453e-ae02-b6a6ad599875">
+
+### 6. Testing Strategies
 
 - Unit and integration tests have been incorporated into the project.
 - Coverage reports have been generated to assess the effectiveness of the tests.
@@ -47,39 +55,41 @@ This repository contains the implementation details for the Tasks Manager projec
 - <img width="960" alt="Screenshot 2024-02-21 123004" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/95a12dfe-e147-4dc9-b4a2-8b32d473adb3">
 
 
-### 6. CI/CD Pipeline
+### 7. CI/CD Pipeline
 
 - A CI/CD pipeline has been established to automate the deployment process.
 - This ensures seamless integration of code changes and swift error detection.
 
-### 7. Application Environments
+### 8. Application Environments
 
 - The application has been deployed in cluster mode using PM2 for enhanced performance and scalability.
 - Environment variable configurations have been implemented for both development and production environments.
 - Security measures have been applied to safeguard the application.
 
-### 8. Containerization
+### 9. Containerization
 
 - The application has been containerized using Docker for efficient deployment and management.
 - Environment variables have been configured within the containers for flexibility and security.
 - A Docker Compose file has been defined for managing multiple services, including a database service.
 - A CI/CD pipeline has been set up to deploy the Dockerized application on a server.
 
-### 9. Internationalization & Localization
+### 10. Internationalization & Localization
 
 - Internationalization and localization have been implemented to cater to diverse user preferences and geographical locations.
 - <img width="338" alt="image" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/a28805aa-7e85-4864-adb6-9c1c8a46242c">
+- <img width="960" alt="Screenshot 2024-04-26 225918" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/1d6201dc-7b1b-4a74-a1ef-0d5ce7379839">
+- <img width="960" alt="Screenshot 2024-04-26 225930" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/8a4859a9-4b7c-437a-9431-40be3e720887">
 
 
 
-### 10. Error Logging & Debugging
+### 11. Error Logging & Debugging
 
 - Error logging and debugging practices have been followed, utilizing Sentry for efficient bug detection and resolution.
 - <img width="960" alt="Screenshot 2024-03-19 222207" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/00feb4f3-caad-42b6-b7af-c6142e4ad7e4">
 
 <img width="960" alt="Screenshot 2024-03-17 131518" src="https://github.com/Prathibha-yadav/To-Do-App/assets/126705101/2e32f7c2-fc8f-4db0-a184-ca55f00d0fc9">
 
-## Notifications
+## 12. Notifications
 
 Slack notifications have been configured to provide updates about the status of the CI/CD pipeline.
 
