@@ -1,6 +1,6 @@
 body {
   background-color: white;
-  font-family: "Courier New", Courier, monospace;
+  font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 }
 .Todo-Item:hover .trash-icon {
   display: block;

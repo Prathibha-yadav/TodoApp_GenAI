@@ -131,7 +131,6 @@ passport.deserializeUser((id, done) => {
 });
 
 require("dotenv").config();
-
 const genAI = new GoogleGenerativeAI(process.env.API_KEY);
 
 app.post(
@@ -139,18 +138,14 @@ app.post(
   connectEnsureLogin.ensureLoggedIn(),
   async (req, res) => {
     const prompt = req.body.prompt;
+    console.log(prompt);
     try {
-      // Fetch title and date from Gemini API
       const { title, dueDate } = await getTitleAndDateFromGemini(prompt);
-
-      // Adding todo to the database
       await Todo.addTodo({
         title,
         dueDate,
         userId: req.user.id,
       });
-
-      // Redirecting to todos page after adding the todo
       return res.redirect("/todos");
     } catch (error) {
       console.error("Error adding todo with Gemini API:", error);
@@ -159,6 +154,42 @@ app.post(
     }
   }
 );
+
+// async function getTitleAndDateFromGemini (prompt) {
+//   try {
+//     const systemPrompt = 'You are assisting a user in managing their tasks. Your task is to extract the to-do item and its due date from the given message. ' +
+//       'If the message contains a task followed by a due date, extract both. Otherwise, extract only the task. ' +
+//       "The due date should be in the format 'YYYY-MM-DD'. " +
+//       'To compute relative dates, assume that the current timestamp is ' +
+//       new Date().toISOString() +
+//       '. ' +
+//       "Return the title and due date in a JSON format with 'title' and 'dueDate' keys. Here is the user input:"
+
+//     const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+//     const result = await model.generateContent(systemPrompt + prompt)
+//     const response = await result.response
+//     const text = await response.text()
+
+//     console.log('Input by user:', text)
+
+//     // Parse the JSON response
+//     const { title, dueDate } = JSON.parse(text)
+//     if (!title || !dueDate) {
+//       throw new Error('Unable to extract the title and date from the suggestion.')
+//     }
+
+//     const parsedDueDate = new Date(dueDate)
+//     if (isNaN(parsedDueDate.getTime())) {
+//       throw new Error('Invalid due date format.')
+//     }
+
+//     console.log('Extracted title and date:', title, parsedDueDate)
+//     return { title, dueDate: parsedDueDate }
+//   } catch (error) {
+//     console.error('Error getting title and date from Gemini API:', error)
+//     throw error
+//   }
+// }
 
 async function getTitleAndDateFromGemini(prompt) {
   try {
@@ -170,7 +201,7 @@ async function getTitleAndDateFromGemini(prompt) {
       "To compute relative dates, assume that the current timestamp is " +
       new Date().toISOString() +
       ". " +
-      "Return the title and due date in the format 'Title - Due Date'.";
+      "Return the title and due date in the format 'Title - Due Date'.Here is the user input:";
 
     // Fetch suggestion from Gemini API with the system prompt
     const suggestion = await askGemini(systemPrompt + " " + prompt);
@@ -199,8 +230,7 @@ async function getTitleAndDateFromGemini(prompt) {
 
 async function askGemini(prompt) {
   try {
-    // For text-only input, use the gemini-pro model
-    const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+    const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
     const result = await model.generateContent(prompt);
     const response = await result.response;
@@ -470,8 +500,7 @@ app.post(
   "/todos",
   connectEnsureLogin.ensureLoggedIn(),
   async function (request, response) {
-    console.log("Creating a todo", request.body);
-    console.log(request.user);
+    console.log("Creating a todo");
 
     try {
       await Todo.addTodo({

@@ -13,7 +13,7 @@
     <div class="grid grid-cols-6">
         <div class="col-start-3 col-span-2">
             <%- include('header') %>
-            <a class="bg-blue-600 text-white px-3 py-0 rounded font-medium mr-2 mb" href="/homepage"><%= i18next.t('home_link') %></a>
+            <a class="bg-blue-600 text-white px-5 py-1.5 rounded font-medium mr-2 mb mt hover:bg-blue-800" href="/homepage"><%= i18next.t('home_link') %></a>
             <h6 class="py-4"><%= i18next.t('signin_title') %></h6>
             <form action="/session" method="post">
                 <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
