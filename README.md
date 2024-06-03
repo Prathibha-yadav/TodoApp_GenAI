@@ -1,5 +1,5 @@
 # Todo Application
-Live Application Link: [Todo Application](https://wd401-main.onrender.com)
+Live Application Link: [Todo Application](https://wd401.onrender.com)
 
 ## Project Overview
 
